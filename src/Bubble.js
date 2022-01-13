@@ -1,17 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const NAME = "Particles";
-const RESOLUTION = 160;
+const NAME = "Hello";
+const RESOLUTION = 100;
 const colors = ["#006984", "#0054a2", "#e6e8ea", "#000000"];
-
-const getShuffledArr = (arr) => {
-  const newArr = arr.slice();
-  for (let i = newArr.length - 1; i > 0; i--) {
-    const rand = Math.floor(Math.random() * (i + 1));
-    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-  }
-  return newArr;
-};
 
 const getParticles = (canvas) => {
   const ctx = canvas.getContext("2d");
@@ -29,6 +20,26 @@ const getParticles = (canvas) => {
   ctx.font = `${10 * scaler}px sans-serif`;
 
   ctx.fillText(text, RESOLUTION / 2 - (width * scaler) / 2, RESOLUTION / 2);
+
+  /*
+  // wanna see the pixels?
+  var MIME_TYPE = "image/png";
+
+  var imgURL = canvas.toDataURL(MIME_TYPE);
+  
+  var dlLink = document.createElement("a");
+  dlLink.download = "canvas.png";
+  dlLink.href = imgURL;
+  dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(
+    ":"
+  );
+  
+  document.body.appendChild(dlLink);
+  dlLink.click();
+  document.body.removeChild(dlLink);
+
+  */
+
   const idata = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const buffer32 = new Uint32Array(idata.data.buffer);
   for (let x = 0; x < canvas.width; x += 1) {
@@ -53,7 +64,7 @@ function Bubble() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    setParticles(getShuffledArr(getParticles(canvasRef.current)));
+    setParticles(getParticles(canvasRef.current));
   }, []);
 
   const svgSize = 1000;
@@ -75,7 +86,7 @@ function Bubble() {
                   className="bubble_circle"
                   cx={0}
                   cy={0}
-                  r={8}
+                  r={10}
                   fill={item.color}
                   style={{ animationDelay: `${4 * item.time}s` }}
                 />
