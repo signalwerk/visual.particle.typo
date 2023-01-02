@@ -37,7 +37,6 @@ const getParticles = (canvas) => {
   document.body.appendChild(dlLink);
   dlLink.click();
   document.body.removeChild(dlLink);
-
   */
 
   const idata = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -45,7 +44,7 @@ const getParticles = (canvas) => {
   for (let x = 0; x < canvas.width; x += 1) {
     for (let y = 0; y < canvas.height; y += 1) {
       if (buffer32[y * canvas.width + x]) {
-        let color = Math.round(Math.random() * (colors.length - 1));
+        const color = Math.round(Math.random() * (colors.length - 1));
         result.push({
           x: x / RESOLUTION,
           y: y / RESOLUTION,
